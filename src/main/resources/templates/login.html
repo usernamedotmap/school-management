@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Login</title>
+    <link rel="icon" href="logo.png" >
+
+    <style>
+        body {
+
+
+    background: radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%);
+
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+
+}
+
+.login-container {
+    width: 300px;
+    padding: 20px;
+    background: white;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.login-container h2 {
+    margin-bottom: 20px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+}
+
+button {
+    width: 100%;
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+.error {
+    color: red;
+    margin-top: 10px;
+}
+
+         .register {
+            margin: 1rem;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            cursor: pointer;
+            font-weight: bold;
+            transition: color 0.5s ease, transform 0.5s ease;
+        }
+
+        /* Hover animation */
+        a:hover {
+            color: red;
+            transform: scale(1.1);
+            animation: bounce 0.5s ease;
+        }
+
+        /* Bounce animation for links */
+        @keyframes bounce {
+            0% {
+                transform: translateY(0);
+            }
+            30% {
+                transform: translateY(-10px);
+            }
+            50% {
+                transform: translateY(0);
+            }
+        }
+
+    </style>
+<!--    <script>-->
+<!--        window.addEventListener("DOMContentLoaded", function() {-->
+<!--            const userRole = document.getElementById("userRole")?.value;-->
+<!--            if (userRole) {-->
+<!--                if (userRole === "STUDENT") {-->
+<!--                    window.location.href = "/dashboard"; // Redirect to student dashboard-->
+<!--                } else if (userRole === "TEACHER") {-->
+<!--                    window.location.href = "/dashboardTeacher"; // Redirect to teacher dashboard-->
+<!--                }-->
+<!--            }-->
+<!--        });-->
+<!--    </script>-->
+</head>
+<body>
+<div class="login-container">
+    <h2>Login</h2>
+    <form action="/login" th:action="@{/login}"  method="post">
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+
+        <input type="hidden" id="userRole" th:value="${userRole}" />
+
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="text" id="email" name="username" required />
+        </div>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" required />
+        </div>
+        <div class="form-group">
+            <button type="submit">Login</button>
+        </div>
+        <div class="error" th:if="${param.error}">
+            Invalid username or password. Please try again.
+        </div>
+        <div class="logout-msg" th:if="${param.logout}">
+            You have been successfully logged out.
+        </div>
+        <div class="register">
+            <h3>alaws account? <span><a href="/register">click here</a></span></h3>
+        </div>
+    </form>
+</div>
+</body>
+</html>
